@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Invoice</title>
+</head>
+<body style="font-family: 'open sans', sans-serif; color: #242424;">
+
+<div style="height: 15em;">
+    <h1 style="float: left;margin: 74px 46px;font-size: 24px;">Facture {{this.order_id}}</h1>
+    <div  style="
+            float: right;
+            margin: 34px 70px;
+          ">
+        <h1>Led Paris</h1>
+        <p>Du lundi au lundi</p>
+        <p>contact@led-paris.fr</p>
+    </div>
+</div>
+
+<div style="
+        background: #eeeeee;
+        padding: 6px 28px;
+        border-radius: 10px;
+        margin: 0 33px;
+      ">
+    <p>Numéro de la commande: <b>{{this.order_id}}</b></p>
+    <p style="
+          float: right;
+          margin-top: -34px;
+        ">Date de la facture: <b>{{this.order_date}}</b></p>
+</div>
+
+<div>
+    <h1 style="
+            margin: 44px 33px;
+            font-size: 25px;
+            font-weight: 100;
+        ">Produits</h1>
+    {{#each items}}
+    <div>
+        <div style="
+              padding: 1px 64px;
+              margin: 10px 32px;
+              border-bottom: 2px solid #242424;
+              padding-bottom: 44px;
+            ">
+            <p>nom du produit</p>
+            <p>référence: <b>{{this.item.uuid}}</b></p>
+            <div style="float: right;margin-top: -87px;">
+                <p>Prix unitaire (Hors TVA): <b>{{this.item.price}}€</b></p>
+                <p>Quantité: <b>{{this.quantity}}</b></p>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+<div>
+    <h1 style="
+          font-size: 19px;
+          font-weight: 100;
+          margin: 27px 30px;
+        ">Montant de la facture (TTC):</h1>
+    <h1 style="
+          float: right;
+          margin-top: -51px;
+          font-size: 22px;
+          margin-right: 31px;
+        ">{{this.total}}€</h1>
+</div>
+
+<div>
+    <h3 style="
+          margin: 21px 29px;
+        ">Adresse de livraison</h3>
+
+    <div style="
+          background: #eeeeee;
+          border-radius: 10px;
+          padding: 9px 31px;
+          margin: 0 27px;
+          float: left;
+          padding-bottom: 21px;
+        ">
+        <p>Matt matt</p>
+        <p>1 rue des carottes</p>
+        <p>carottesLand</p>
+        <b>20400</b>
+        <b>France</b>
+    </div>
+</div>
+
+<div style="
+          float: right;
+          margin: 0 30px;
+      ">
+    <p>Le montant de la facture a été réglé via: <b>{{this.method}}</b></p>
+
+    <div>
+        <p style="
+                font-style: italic;
+                color: #5c5c5c;
+            ">Led-Paris informations légales</p>
+
+        <div style="
+                background: #eee;
+                border-radius: 10px;
+                padding: 4px 23px;
+            ">
+            <p>BLABLABLA</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
