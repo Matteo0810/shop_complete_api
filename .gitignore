@@ -1,0 +1,10 @@
+# ide
+*/.idea/*
+*/.vscode/*
+
+# node modules
+
+*/node_modules/*
+
+# github
+*/.git/*
