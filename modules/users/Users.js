@@ -52,4 +52,8 @@ module.exports = new class Users extends Manager {
         return result
     }
 
+    permissions: {
+        ADMIN: 3
+    }
+
 }

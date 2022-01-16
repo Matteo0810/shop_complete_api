@@ -31,10 +31,13 @@ router.get('/order/:state', async (request, response) => {
 
 // ORDER INTERACTIONS
 
-router.get('/:user', async (request, response) => {
-    return await Orders.getAll({
-        user: request.params.user
-    });
+router.get('/', async (request, response) => {
+    const result = await Users.hasAuthorization(request.headers.authorization);
+    if(result instanceof Array)
+        return response.status(result[1]).send(result[0])
+    return response.status(200).json(await Orders.getAll({
+        user: result._id
+    }));
 })
 
 router.patch('/update', async (request, response) => {
@@ -44,17 +47,23 @@ router.patch('/update', async (request, response) => {
         return response.status(result[1]).send(result[0])
     if(!id)
         return response.status(200).send('id parameters are missing.')
+    if(result.permission === Users.permissions.ADMIN)
+        return response.status(403).send('Invalid permission')
     Orders.update({ _id: result._id }, request.params.data)
+    return response.status(200).send('Order updated !')
 })
 
 router.delete('/delete/:user/:id', async (request, response) => {
-    const { user, id } = request.params;
+    const { user, id } = request.params,
+        result = await Users.hasAuthorization(request.headers.authorization);
     if(!user || !id)
         return response.status(200).send('Some parameters are missing.')
-    Orders.delete({
-        _id: id,
-        user: user
-    })
+    if(result instanceof Array)
+        return response.status(result[1]).send(result[0])
+    if(result.permission === Users.permissions.ADMIN)
+        return response.status(403).send('Invalid permission')
+    Orders.delete({ _id: id, user: user })
+    return response.status(200).send('Order deleted !')
 })
 
 module.exports = {

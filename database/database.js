@@ -5,7 +5,8 @@ function load(withPassword = false) {
         : `mongodb://localhost/${process.env.DB_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true }, error => {
         if(error) return console.error(error)
     });
-    mongoose.connection.once('open', () => console.log('[DB] connection established successfully'))
+    mongoose.connection.once('open', () =>
+        console.log('[DB] connection established successfully'))
 }
 
 function getCurrentDB() {
